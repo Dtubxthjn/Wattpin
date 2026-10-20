@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Dtubxthjn/Wattpin/releases/tag/v0.4.4-beta">Download beta</a> ·
   <a href="#get-started">Get started</a> ·
   <a href="#a-widget-that-knows-when-to-get-out-of-the-way">Preview</a> ·
   <a href="docs/INSTALL.md">Installation guide</a> ·
@@ -31,10 +32,10 @@ No account. No cloud service. No telemetry. Your history stays on your computer.
 ## A widget that knows when to get out of the way
 
 <p align="center">
-  <img src="docs/images/medium.png" width="420" alt="Actual Wattpin Medium view with live watts, a power graph, CPU readings, and session energy" />
+  <img src="docs/images/medium.png" width="420" alt="Wattpin Medium view rendered with synthetic demonstration readings" />
 </p>
 
-<p align="center"><sub>Actual application capture on Linux. Readings and sensor coverage depend on your hardware.</sub></p>
+<p align="center"><sub>Application UI rendered with synthetic demo data. No personal power readings or device identifiers.</sub></p>
 
 | Quiet on the desktop | Useful under the surface |
 | :--- | :--- |
@@ -68,7 +69,7 @@ already running, launching it again brings up its preferences.
 
 ## Get started
 
-**Version 0.4.3 is beta.** Linux X11 is the best-tested desktop target.
+**Version 0.4.4 is beta.** Linux X11 is the best-tested desktop target.
 Windows support is included; native Windows hardware validation remains pending.
 
 ### Run from source
@@ -93,13 +94,15 @@ See the [Windows hardware access and build guide](docs/INSTALL.md#windows-hardwa
 
 ### Installers and builds
 
-The project includes build tooling for a Linux `.run` installer and a Windows setup wizard.
-Downloadable installers, when published, belong in [GitHub Releases](https://github.com/Dtubxthjn/Wattpin/releases).
-The Windows setup can also be built through the repository's **Windows installer** workflow.
+[**Get Wattpin 0.4.4 Beta →**](https://github.com/Dtubxthjn/Wattpin/releases/tag/v0.4.4-beta)
 
-The Linux 0.4.3 installer has been built locally. The last locally tested Windows
-installer is 0.4.1; a Windows 0.4.3 binary requires the included Windows build workflow.
-See the [release audit](docs/RELEASE_AUDIT.md) for tested platforms and remaining limits.
+Choose the Linux `.run` installer or Windows x64 setup wizard from the release assets.
+Source archives, a Python wheel, and `SHA256SUMS` are included. Installers are unsigned.
+Linux builds target Ubuntu 24.04 / glibc 2.39 or newer; Windows targets Windows 10 1809+
+or Windows 11 x64. Physical Windows sensor validation remains pending.
+
+The release workflow builds on fresh GitHub runners, tests both platforms, checks
+publication archives, and publishes only after both build jobs pass.
 
 [Full installation and removal guide →](docs/INSTALL.md)
 
@@ -168,5 +171,6 @@ Bug reports, desktop compatibility notes, and carefully scoped sensor contributi
 | [Release audit](docs/RELEASE_AUDIT.md) | Verification record and beta limitations |
 | [Changelog](CHANGELOG.md) | Release history |
 | [Security](SECURITY.md) · [Third-party notices](THIRD_PARTY_NOTICES.md) | Privacy, reporting, and dependencies |
+| [Publication privacy review](docs/PRIVACY_AUDIT.md) | Source checks, demo data, and public-history limits |
 
 <p align="center"><sub>MIT licensed. A small instrument for a more understandable desktop.</sub></p>

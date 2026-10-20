@@ -121,7 +121,7 @@ is enforced. Sensor errors produce unavailable readings and retry without stoppi
 QT_QPA_PLATFORM=offscreen .venv/bin/python -m powerglass.app --data-dir /tmp/powerglass-preview --screenshot preview.png --preferences
 ```
 
-The preview uses actual sensor discovery, never demonstration readings.
+The public preview generator uses synthetic demonstration readings and temporary settings. It never reads local hardware, personal settings, or session history.
 
 ## Open-source development and releases
 
@@ -141,7 +141,7 @@ desktop. Other matrix versions require the hosted CI run after publication.
 
 See [CONTRIBUTING](../CONTRIBUTING.md), [SECURITY](../SECURITY.md),
 [CHANGELOG](../CHANGELOG.md) and [third-party notices](../THIRD_PARTY_NOTICES.md).
-For publication, use the clean `wattpin-0.4.3-github-source.zip` archive. Upload its contents
+For publication, use the clean `wattpin-0.4.4-github-source.zip` archive. Upload its contents
 to the repository and attach installers separately to a GitHub Release. Do not upload
 the complete development folder. See [the release audit](RELEASE_AUDIT.md).
 

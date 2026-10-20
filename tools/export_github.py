@@ -5,6 +5,8 @@ import re
 import tarfile
 import zipfile
 
+from tools.privacy_check import findings
+
 root=Path(__file__).resolve().parent.parent
 version=re.search(r'^version = "([^"]+)"',(root/'pyproject.toml').read_text(),re.M).group(1)
 archive=root/f'dist/wattpin-{version}.tar.gz'
@@ -23,6 +25,9 @@ with tarfile.open(archive) as source,zipfile.ZipFile(output,'w',compression=zipf
         assert not relative[-1].endswith(('.sqlite3','.sqlite3-wal','.log','.deb','.pem','.key'))
         assert relative[-1] not in ('.env','settings.json')
         data=source.extractfile(item).read()
+        issues = findings("/".join(relative), data)
+        if issues:
+            raise ValueError(f"Publication privacy check failed in {item.name}: {issues}")
         for pattern in patterns:
             assert not re.search(pattern,data),f'Credential pattern in {item.name}'
         info=zipfile.ZipInfo('/'.join((f'wattpin-{version}',*relative)))

@@ -1,3 +1,4 @@
+import sys
 import json
 import sqlite3
 from pathlib import Path
@@ -9,6 +10,7 @@ from powerglass.sensors import LinuxSensors, Reading, Snapshot, number
 from powerglass.storage import Session
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux sysfs fixture names require a POSIX filesystem")
 def test_energy_counter_and_overlapping_children(tmp_path):
     root = tmp_path / 'sys'
     package = root / 'class/powercap/intel-rapl:0'
@@ -31,6 +33,7 @@ def test_energy_counter_and_overlapping_children(tmp_path):
     assert sum(r.joules for r in snapshot.readings if r.included) == 40
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux sysfs fixture names require a POSIX filesystem")
 def test_rollover_and_sleep(tmp_path):
     zone = tmp_path / 'class/powercap/intel-rapl:0'
     zone.mkdir(parents=True)

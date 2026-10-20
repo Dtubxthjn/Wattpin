@@ -1,6 +1,9 @@
+import pytest
+import sys
 from powerglass.launcher import environment
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux bundled-library environment behavior")
 def test_bundled_library_path_preserves_existing_environment():
     env = environment({'LD_LIBRARY_PATH': '/example', 'DISPLAY': ':9'})
     assert env['LD_LIBRARY_PATH'].endswith(':/example')

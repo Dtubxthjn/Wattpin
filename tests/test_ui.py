@@ -1,3 +1,5 @@
+import pytest
+import sys
 import os
 os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
@@ -96,21 +98,24 @@ def test_offscreen_move_recovers_without_preferences_and_preserves_hidden_state(
         widget.close()
 
 
-def test_x11_background_widget_uses_desktop_window_type(tmp_path, monkeypatch):
+@pytest.mark.skipif(sys.platform != "linux", reason="X11 desktop behavior is Linux-specific")
+def test_x11_background_widget_uses_lowered_dock_window_type(tmp_path, monkeypatch):
     app = QApplication.instance() or QApplication([])
     monkeypatch.setattr(QApplication, 'platformName', staticmethod(lambda: 'xcb'))
     widget = Overlay(Settings(tmp_path), Session(tmp_path))
     try:
-        assert widget.testAttribute(Qt.WA_X11NetWmWindowTypeDesktop)
-        assert not widget.windowFlags() & Qt.WindowStaysOnBottomHint
+        assert not widget.testAttribute(Qt.WA_X11NetWmWindowTypeDesktop)
+        assert widget.testAttribute(Qt.WA_X11NetWmWindowTypeDock)
+        assert widget.windowFlags() & Qt.WindowStaysOnBottomHint
         widget.settings.values['bottom'] = False
         widget.apply_settings()
-        assert not widget.testAttribute(Qt.WA_X11NetWmWindowTypeDesktop)
+        assert not widget.testAttribute(Qt.WA_X11NetWmWindowTypeDock)
     finally:
         widget.stop()
         widget.close()
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="X11 desktop behavior is Linux-specific")
 def test_desktop_drag_moves_and_saves_but_locked_widget_does_not(tmp_path, monkeypatch):
     from types import SimpleNamespace
     from unittest.mock import Mock

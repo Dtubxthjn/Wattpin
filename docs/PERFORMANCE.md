@@ -1,41 +1,35 @@
-# Resource measurements — 0.2.1
+# Resource measurement methodology
 
-Local comparison on the development computer, Python 3.12, using actual Linux power
-sensors. Each separate process used Ultra Low, transparent background, Qt offscreen,
-three seconds of startup warmup and a 15-second measurement window. The before tree
-was copied from version 0.2.0 before optimization. Both tests ran sequentially.
+This document describes how to benchmark Wattpin without publishing a developer's
+hardware readings, session history, or local resource measurements.
 
-| Process metric | Before | After |
-| --- | ---: | ---: |
-| CPU, percentage of one logical core | 1.733% | 0.200% |
-| Resident memory | 64.57 MiB | 64.66 MiB |
-| Disk bytes written in measurement window | 274,432 | 73,728 |
-| Write syscalls | 164 | 84 |
-| Read syscalls | 420 | 118 |
+## Run a local comparison
 
-This short local sample shows about 88% less process CPU and 73% fewer disk bytes written.
-Memory is essentially unchanged. RSS includes shared Qt library pages and does not
-represent wholly private memory. These are process measurements, not a measured reduction
-in wall electricity. Results vary with fonts, desktop, detail mode, drivers and workload.
-The NVIDIA power path was unavailable on the test environment; child-process CPU is not
-included. Compatible NVIDIA systems still launch the vendor command for each reading.
+The optional benchmark utility uses `psutil` and is separate from the application runtime:
 
-Changes contributing to the savings:
+```bash
+python -m tools.benchmark /path/to/previous-source /path/to/current-source
+```
 
-* Discover hardware once per minute, cache sensor labels and ranges, read live counters
-  each second. Hardware changes can take up to a minute to appear.
-* Wait once between samples instead of waking every 50 ms.
-* Use filesystem events for second-launch requests instead of a polling timer.
-* Avoid hidden graph repaints and hidden-label formatting in Ultra Low.
-* Resize the watt label only when it needs more room.
-* Batch durable database commits at five-second intervals and flush on normal shutdown.
-* Destroy closed preferences windows to release their controls and font lists.
+Use the same desktop backend, font, display mode, sensor permissions, warmup period,
+and measurement duration for each run. Keep the resulting measurements local unless
+you explicitly choose to share them.
 
-Every sample still contributes to energy integration. Display mode does not affect
-sampling. Abrupt power loss or forced termination may lose up to the uncommitted interval;
-choose a one-second commit interval in Preferences → Sessions for stronger persistence.
-The default interval is five seconds, configurable from 1–15 seconds.
+Check process CPU, resident memory, disk bytes written, and write syscalls. RSS includes
+shared Qt pages and is not wholly private memory. Process resource measurements do not
+prove a reduction in whole-PC wall electricity. Compatible NVIDIA systems invoke the
+vendor command, whose cost depends on the driver.
 
-Reproduce with the developer-only `psutil` dependency and `tools/benchmark.py`. Keep
-the same sensor permissions and graphics backend for both runs. Longer or repeated
-measurements are appropriate before making hardware-wide performance claims.
+## Design choices
+
+- Live counters are read every second; hardware topology is cached for 60 seconds.
+- The collector sleeps between readings.
+- Hidden graphs and labels avoid repainting.
+- Disk commits are batched, with a normal-shutdown flush.
+- Closed preferences windows release their controls.
+
+Every sample still contributes to energy integration. Display mode does not change the
+sampling interval. Forced termination may lose uncommitted readings; the commit interval
+is configurable from one to fifteen seconds.
+
+No personal benchmark dataset is distributed with this project.

@@ -19,3 +19,7 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
       - run: python -m build
+      - name: Check publication archive for private data
+        run: |
+          python -m tools.export_github
+          python -m tools.privacy_check dist/wattpin-0.4.4-github-source.zip

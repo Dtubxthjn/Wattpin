@@ -186,7 +186,7 @@ class Preferences(QDialog):
         flush.setSuffix(' seconds between disk commits')
         self.fields['flush_seconds'] = flush
         form.addWidget(flush)
-        info = QLabel('Every reading is tracked; disk writes are batched to save resources.\nDefault: commit every 5 seconds and always on normal shutdown.\nSudden power loss may lose the last uncommitted interval.\nChoose 1 second for more frequent disk persistence.\n\nAll display modes collect the same readings.\nSession Wh excludes manual overhead and PSU estimates.\nOlder detailed readings are removed according to retention above;\nsession totals are kept. Export readings before their retention expires.\n\nMIT-licensed open-source software · version 0.4.3\nNo accounts, telemetry, or network listener.')
+        info = QLabel('Every reading is tracked; disk writes are batched to save resources.\nDefault: commit every 5 seconds and always on normal shutdown.\nSudden power loss may lose the last uncommitted interval.\nChoose 1 second for more frequent disk persistence.\n\nAll display modes collect the same readings.\nSession Wh excludes manual overhead and PSU estimates.\nOlder detailed readings are removed according to retention above;\nsession totals are kept. Export readings before their retention expires.\n\nMIT-licensed open-source software · version 0.4.4\nNo accounts, telemetry, or network listener.')
         info.setWordWrap(True)
         form.addWidget(info)
         export = QPushButton('Export retained readings to CSV…')
@@ -327,16 +327,16 @@ class Overlay(QWidget):
         if not QSystemTrayIcon.isSystemTrayAvailable():
             s['locked'] = False
         flags = Qt.FramelessWindowHint | Qt.Tool | Qt.WindowDoesNotAcceptFocus
-        desktop = s['bottom'] and QApplication.platformName() == 'xcb'
-        # The desktop type already sits below applications. Also requesting
-        # BELOW can put it underneath the wallpaper, which takes its clicks.
-        if s['bottom'] and not desktop:
+        background = s['bottom'] and QApplication.platformName() == 'xcb'
+        # A lowered dock sits above wallpaper but below normal applications.
+        # A desktop-type window competes with the wallpaper in the same layer.
+        if s['bottom']:
             flags |= Qt.WindowStaysOnBottomHint
         if s['locked']:
             flags |= Qt.WindowTransparentForInput
-        # X11 utility windows are minimized by Show Desktop. A desktop widget
-        # must belong to the desktop layer, otherwise it disappears with apps.
-        self.setAttribute(Qt.WA_X11NetWmWindowTypeDesktop, desktop)
+        # Docks survive Show Desktop. No strut is set, so no work area is reserved.
+        self.setAttribute(Qt.WA_X11NetWmWindowTypeDesktop, False)
+        self.setAttribute(Qt.WA_X11NetWmWindowTypeDock, background)
         self.setWindowFlags(flags)
         family = s['font'].replace("'", '').replace('"', '').replace(';', '')
         self.setStyleSheet(overlay_style(s))
@@ -474,8 +474,9 @@ class Overlay(QWidget):
             self.drag = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
             # X11 window managers may acknowledge the move request but refuse
             # to move a desktop-type window. Drag these directly instead.
-            desktop = self.testAttribute(Qt.WA_X11NetWmWindowTypeDesktop)
-            if not desktop and self.windowHandle() and self.windowHandle().startSystemMove():
+            background = (self.testAttribute(Qt.WA_X11NetWmWindowTypeDesktop) or
+                          self.testAttribute(Qt.WA_X11NetWmWindowTypeDock))
+            if not background and self.windowHandle() and self.windowHandle().startSystemMove():
                 # The window manager owns this drag; do not also move manually.
                 self.drag = None
 

@@ -1,9 +1,17 @@
-# Publication audit — Wattpin 0.4.3 beta
+# Publication audit — Wattpin 0.4.4 beta
 
-Updated on 18 October 2026. This report records the checks and remaining limits; it is
+Updated on 20 October 2026. This report records the checks and remaining limits; it is
 not a claim that the application is free of all bugs or a substitute for Windows hardware testing.
 
 ## Confirmed fixes
+
+* **Superseding the earlier X11 layering fixes:** background placement uses a lowered
+  dock instead of the wallpaper window type. This separates it from wallpaper
+  stacking while keeping it below normal apps and visible during Show Desktop.
+  `tools/check_x11_layer.py` checks six wallpaper raise/remap and Show Desktop
+  cycles on Cinnamon, including normal-window ordering and absence of screen struts.
+  No repeating recovery polling is added. Earlier desktop-type checks did not
+  exercise wallpaper restacking and were insufficient to confirm a lasting fix.
 
 * X11 background placement no longer combines the desktop type with the BELOW
   flag. Cinnamon could stack it below the wallpaper and deliver clicks there.
@@ -39,7 +47,7 @@ not a claim that the application is free of all bugs or a substitute for Windows
 
 ## Verification
 
-* 31 automated tests pass locally on Python 3.12, including calculation, counter rollover,
+* 34 automated tests pass locally on Python 3.12, including calculation, counter rollover,
   duplicate-domain exclusion, sleep gaps, retention, persistence, transparent rendering,
   display modes, screen-edge placement, concurrency and single-instance quit handling.
 * The Windows named-pipe path was checked against the exact Win32 character sequence.
@@ -55,8 +63,8 @@ not a claim that the application is free of all bugs or a substitute for Windows
   for common AWS/GitHub token and private-key patterns. This is a targeted pattern scan,
   not a guarantee that every possible secret format can be detected.
 
-The Linux installer is rebuilt for 0.4.3. The last locally tested Windows binary is 0.4.1;
-the 0.4.3 Windows build must run through the included Windows workflow. The sensor-host
+The Linux installer is rebuilt for 0.4.4. The last locally tested Windows binary is 0.4.1;
+the 0.4.4 Windows build must run through the included Windows workflow. The sensor-host
 source is unchanged from 0.4.0.
 
 ## Remaining publication limits
@@ -73,7 +81,16 @@ source is unchanged from 0.4.0.
 
 ## Publish the right files
 
-Extract `dist/wattpin-0.4.3-github-source.zip` and upload the contents of its top-level
+Extract `dist/wattpin-0.4.4-github-source.zip` and upload the contents of its top-level
 folder to the repository, including `.github` and `.gitignore`. Keep `dist`, `.venv`,
 `build-output`, `build-work`, caches and personal session databases out of Git.
 Attach the Windows setup executable, Linux `.run`, and `SHA256SUMS` as Release assets.
+
+## Public-data hygiene
+
+Published preview images use synthetic demo data. Local benchmark numbers are not
+distributed. Source exports reject common credential formats, personal home paths,
+private keys, environment files, settings, logs, and session databases. These checks
+reduce accidental disclosure; they are not a guarantee against every secret format.
+
+The layer choice follows the [EWMH stacking guidance](https://specifications.freedesktop.org/wm/latest-single/#STACKINGORDER) and is verified against the local window manager.

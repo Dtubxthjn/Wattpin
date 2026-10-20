@@ -2,8 +2,8 @@
 
 ## Linux — one step
 
-Run the supplied executable `Wattpin-0.4.3-Linux-x86_64.run` (or run
-`bash Wattpin-0.4.3-Linux-x86_64.run` from a terminal). Python and pip are not needed.
+Run the supplied executable `Wattpin-0.4.4-Linux-x86_64.run` (or run
+`bash Wattpin-0.4.4-Linux-x86_64.run` from a terminal). Python and pip are not needed.
 No administrator password is required. The installer checks the bundled UI, creates
 application-menu entries, enables login startup, and opens the widget when a desktop
 connection is available. Quit an old pre-0.4 prototype from its tray before upgrading.
@@ -12,7 +12,7 @@ Open **Uninstall Wattpin** from the application menu and confirm removal. Your h
 and preferences are kept. For a complete removal including personal history, use:
 
 ```bash
-bash Wattpin-0.4.3-Linux-x86_64.run --uninstall --purge-data
+bash Wattpin-0.4.4-Linux-x86_64.run --uninstall --purge-data
 ```
 
 The managed application lives in `~/.local/share/wattpin/application`. Data remains in
@@ -26,7 +26,7 @@ still depends on the compositor. X11 remains the best-tested overlay target.
 
 ## Windows — setup wizard
 
-Double-click **Wattpin-0.4.3-Windows-x64-Setup.exe**, accept the license, choose the
+Double-click **Wattpin-0.4.4-Windows-x64-Setup.exe**, accept the license, choose the
 startup/shortcut options and install. Python, pip and a separate .NET runtime are not
 needed. The app is installed for the current user, so setup does not need administrator
 rights. The default destination is `%LOCALAPPDATA%\Programs\Wattpin`.
@@ -37,7 +37,7 @@ application files, shortcuts, registry entries and login startup. The wizard off
 unchecked option to also delete power history and preferences; otherwise data is kept
 at `%LOCALAPPDATA%\Wattpin`.
 
-Silent deployment: `Wattpin-0.4.3-Windows-x64-Setup.exe /S`. Silent uninstall preserves
+Silent deployment: `Wattpin-0.4.4-Windows-x64-Setup.exe /S`. Silent uninstall preserves
 personal data. Install location may be supplied as the final argument, for example
 `/D=C:\Tools\Wattpin` (do not wrap this NSIS argument in quotes).
 

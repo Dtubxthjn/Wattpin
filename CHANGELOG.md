@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.4
+
+* Replace the X11 desktop window type with a lowered dock: above wallpaper, below
+  ordinary applications, immune to Show Desktop, without reserving screen space.
+* Retain direct dragging and click-through locking for background placement.
+* Add a real X11 integration check with repeated wallpaper raise/remap and Show
+  Desktop cycles, including an option to check frozen builds with isolated data.
+
 ## 0.4.3
 
 * Avoid combining the X11 desktop window type with BELOW, which can place the

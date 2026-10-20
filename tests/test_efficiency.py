@@ -1,3 +1,4 @@
+import sys
 import sqlite3
 import threading
 import time
@@ -9,6 +10,7 @@ from powerglass.sensors import LinuxSensors, Snapshot, Reading
 from powerglass.storage import Session
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux sysfs fixture names require a POSIX filesystem")
 def test_cached_discovery_keeps_live_counters_and_rediscovers(tmp_path):
     zone = tmp_path/'class/powercap/intel-rapl:0'
     zone.mkdir(parents=True)

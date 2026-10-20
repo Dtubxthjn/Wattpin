@@ -26,7 +26,7 @@ jobs:
       - name: Frozen self-test and install/uninstall smoke test
         shell: pwsh
         run: |
-          $Setup = (Resolve-Path dist/Wattpin-0.4.3-Windows-x64-Setup.exe).Path
+          $Setup = (Resolve-Path dist/Wattpin-0.4.4-Windows-x64-Setup.exe).Path
           $Target = "$env:LOCALAPPDATA\Wattpin-CI"
           $Process = Start-Process $Setup -ArgumentList '/S',"/D=$Target" -Wait -PassThru
           if ($Process.ExitCode -ne 0) { throw 'Setup failed' }

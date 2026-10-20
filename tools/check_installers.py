@@ -5,8 +5,8 @@ import struct
 
 root=Path(__file__).resolve().parent.parent
 directory=root/'dist'
-windows=directory/'Wattpin-0.4.3-Windows-x64-Setup.exe'
-linux=directory/'Wattpin-0.4.3-Linux-x86_64.run'
+windows=directory/'Wattpin-0.4.4-Windows-x64-Setup.exe'
+linux=directory/'Wattpin-0.4.4-Linux-x86_64.run'
 data=windows.read_bytes()
 assert data[:2]==b'MZ'
 pe=struct.unpack_from('<I',data,0x3c)[0]
@@ -21,6 +21,6 @@ with linux.open('rb') as stream:
             break
     assert found and stream.read(2)==b'\x1f\x8b'
 paths=[windows,linux]
-paths += sorted(directory.glob('wattpin-0.4.3*'))
+paths += sorted(directory.glob('wattpin-0.4.4*'))
 (directory/'SHA256SUMS').write_text(''.join(hashlib.sha256(path.read_bytes()).hexdigest()+'  '+path.name+'\n' for path in paths))
 print('PASS: Windows PE installer, Linux compressed self-installer, release checksums')

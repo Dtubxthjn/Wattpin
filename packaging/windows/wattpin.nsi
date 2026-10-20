@@ -8,7 +8,7 @@ Unicode True
 !define PAYLOAD "..\..\build-output\windows\Wattpin"
 !endif
 !ifndef OUTPUT
-!define OUTPUT "..\..\dist\Wattpin-0.4.3-Windows-x64-Setup.exe"
+!define OUTPUT "..\..\dist\Wattpin-0.4.4-Windows-x64-Setup.exe"
 !endif
 Name "Wattpin"
 OutFile "${OUTPUT}"
@@ -18,10 +18,10 @@ RequestExecutionLevel user
 SetCompressor /SOLID lzma
 Icon "..\..\powerglass\assets\wattpin.ico"
 UninstallIcon "..\..\powerglass\assets\wattpin.ico"
-VIProductVersion "0.4.3.0"
+VIProductVersion "0.4.4.0"
 VIAddVersionKey "ProductName" "Wattpin"
 VIAddVersionKey "FileDescription" "Wattpin Setup"
-VIAddVersionKey "FileVersion" "0.4.3"
+VIAddVersionKey "FileVersion" "0.4.4"
 VIAddVersionKey "LegalCopyright" "2026 Wattpin contributors"
 !define MUI_ABORTWARNING
 !define MUI_FINISHPAGE_RUN "$INSTDIR\Wattpin.exe"
@@ -69,7 +69,7 @@ stopped:
   SetOutPath "$INSTDIR"
   File /r "${PAYLOAD}\*.*"
   FileOpen $0 "$INSTDIR\.wattpin-managed" w
-  FileWrite $0 "Wattpin 0.4.3"
+  FileWrite $0 "Wattpin 0.4.4"
   FileClose $0
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "Wattpin"
@@ -79,7 +79,7 @@ stopped:
   CreateShortcut "$SMPROGRAMS\Wattpin\Uninstall Wattpin.lnk" "$INSTDIR\Uninstall.exe"
   WriteRegStr HKCU "Software\Wattpin" "InstallDir" "$INSTDIR"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "DisplayName" "Wattpin"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "DisplayVersion" "0.4.3"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "DisplayVersion" "0.4.4"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "DisplayIcon" "$INSTDIR\Wattpin.exe"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "Publisher" "Wattpin contributors"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Wattpin" "UninstallString" '$\"$INSTDIR\Uninstall.exe$\"'
