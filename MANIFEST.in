@@ -1,0 +1,11 @@
+include LICENSE THIRD_PARTY_NOTICES.md CONTRIBUTING.md SECURITY.md CHANGELOG.md DESIGN.md
+include run.sh install.py .gitignore
+recursive-include docs *.md *.png *.svg
+recursive-include tools *.py
+recursive-include tests *.py
+recursive-include vendor *
+recursive-include .github *.yml *.md
+recursive-include packaging *.py *.sh *.nsi *.cs *.csproj *.txt *.md *.ps1
+prune packaging/sensor-host/bin
+prune packaging/sensor-host/obj
+global-exclude __pycache__ *.py[cod]

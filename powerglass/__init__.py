@@ -1,0 +1,1 @@
+"""Wattpin desktop energy monitor."""

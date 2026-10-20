@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>Wattpin — power, placed</title>
+  <path d="M64 7C38 7 18 27 18 53c0 29 46 68 46 68s46-39 46-68C110 27 90 7 64 7Z" fill="#302d27"/>
+  <circle cx="64" cy="53" r="32" fill="#f2ece0"/>
+  <path d="M42 65a25 25 0 1 1 44 0" fill="none" stroke="#b5aa98" stroke-width="4"/>
+  <path d="m64 53 18-19" stroke="#b84e2c" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="64" cy="53" r="6" fill="#b84e2c"/>
+  <path d="M49 72h30" stroke="#302d27" stroke-width="3"/>
+</svg>

@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wattpin"
+version = "0.4.3"
+description = "An honest, unobtrusive Linux and Windows desktop power monitor"
+requires-python = ">=3.10"
+dependencies = ["PySide6-Essentials>=6.8,<7"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+keywords = ["linux", "power", "energy", "desktop-widget", "rapl"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: X11 Applications :: Qt",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Programming Language :: Python :: 3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "build>=1,<2"]
+
+[project.urls]
+Homepage = "https://github.com/Dtubxthjn/Wattpin"
+Repository = "https://github.com/Dtubxthjn/Wattpin"
+Issues = "https://github.com/Dtubxthjn/Wattpin/issues"
+Changelog = "https://github.com/Dtubxthjn/Wattpin/blob/main/CHANGELOG.md"
+
+[project.scripts]
+wattpin = "powerglass.launcher:main"
+powerglass = "powerglass.launcher:main"
+
+[tool.setuptools.packages.find]
+include = ["powerglass*"]
+
+[tool.setuptools.package-data]
+powerglass = ["assets/*.svg", "assets/*.ico", "assets/*.ttf", "assets/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

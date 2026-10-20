@@ -1,0 +1,41 @@
+name: Windows installer
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: choco install nsis --yes --no-progress
+      - run: ./packaging/windows/build.ps1
+        shell: pwsh
+      - name: Regression tests on Windows
+        run: python -m pytest -q
+        env:
+          QT_QPA_PLATFORM: offscreen
+      - name: Frozen self-test and install/uninstall smoke test
+        shell: pwsh
+        run: |
+          $Setup = (Resolve-Path dist/Wattpin-0.4.3-Windows-x64-Setup.exe).Path
+          $Target = "$env:LOCALAPPDATA\Wattpin-CI"
+          $Process = Start-Process $Setup -ArgumentList '/S',"/D=$Target" -Wait -PassThru
+          if ($Process.ExitCode -ne 0) { throw 'Setup failed' }
+          $App = Start-Process "$Target\Wattpin.exe" -ArgumentList '--self-test' -Wait -PassThru
+          if ($App.ExitCode -ne 0) { throw 'Bundled UI self-test failed' }
+          Start-Process "$Target\Uninstall.exe" -ArgumentList '/S' -Wait
+          for ($i = 0; $i -lt 30 -and (Test-Path "$Target\Wattpin.exe"); $i++) { Start-Sleep 1 }
+          if (Test-Path "$Target\Wattpin.exe") { throw 'App was not uninstalled' }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Wattpin-Windows-x64-Setup
+          path: dist/*Setup.exe

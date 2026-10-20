@@ -1,0 +1,33 @@
+name: Bug report
+description: Report a reproducible problem with Wattpin.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Please redact personal paths and sensor data. Do not upload session databases or credentials. For security issues, see SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: Wattpin version
+      placeholder: "0.4.3"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and desktop
+      description: Include OS version and X11/Wayland or Windows version.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Explain what happened and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Relevant details
+      description: Sensor type, display mode, redacted errors or screenshots.

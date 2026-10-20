@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+<title id="title">Wattpin — Your PC's power. In plain sight.</title>
+<desc id="desc">Black and gold instrument-inspired artwork with a power trace. A local-first desktop power monitor for Linux and Windows.</desc>
+<defs><linearGradient id="gold"><stop stop-color="#fff0ad"/><stop offset=".6" stop-color="#ffd700"/><stop offset="1" stop-color="#ac821c"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffd700" stroke-opacity=".07"/></pattern></defs>
+<rect width="1200" height="430" rx="12" fill="#08090b"/>
+<rect x="760" y="64" width="392" height="290" fill="url(#grid)"/>
+<g font-family="DejaVu Sans, Arial, sans-serif">
+<g fill="#ffd700" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="2"><text x="48" y="45">W / DESKTOP POWER MONITOR</text><text x="1152" y="45" text-anchor="end">0.4.3 / BETA</text></g>
+<path d="M48 67H1152M48 365H1152" stroke="#353020"/>
+<text x="42" y="188" fill="url(#gold)" font-size="108" font-weight="bold" letter-spacing="-6">Wattpin.</text>
+<text x="48" y="250" fill="#fff" font-size="32" letter-spacing="-1">Your PC's power. In plain sight.</text>
+<text x="50" y="296" fill="#a6a69e" font-size="18">A quiet desktop widget. Real sensors. Local history.</text>
+<g transform="translate(955 213)" fill="none"><circle r="113" stroke="#4a4020"/><circle r="91" stroke="#ffd700" stroke-opacity=".3"/><path d="M0-113A113 113 0 0 1 113 0" stroke="url(#gold)" stroke-width="4"/><path d="M-143 16h59l17-27 22 64 31-117 30 80h33l20-30h72" stroke="url(#gold)" stroke-width="3" stroke-linejoin="round"/><circle cx="141" cy="-14" r="5" fill="#ffd700" stroke="none"/></g>
+<g fill="#a6a69e" font-family="DejaVu Sans Mono, monospace" font-size="12" letter-spacing="1"><text x="48" y="402">LINUX + WINDOWS</text><text x="450" y="402">LOCAL FIRST / NO TELEMETRY</text><text x="1152" y="402" text-anchor="end">MIT LICENSE</text></g>
+</g></svg>
