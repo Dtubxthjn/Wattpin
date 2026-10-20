@@ -23,7 +23,11 @@ is added.
 
 The old build failed a real Cinnamon wallpaper-restacking check. The replacement
 passed six wallpaper raise/remap and Show Desktop cycles, including the frozen
-app with locked placement. All 34 automated tests passed locally.
+app with locked placement. All 39 automated tests passed locally.
+
+Concurrent Windows launch requests now retry temporary file-sharing conflicts
+instead of failing to open Preferences. Retries are bounded and only run when
+a request encounters a Windows sharing conflict.
 
 ### What's included
 

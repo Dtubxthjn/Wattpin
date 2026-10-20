@@ -2,6 +2,8 @@
 
 ## 0.4.4
 
+* Retry temporary Windows file-sharing conflicts during concurrent launch requests,
+  with a bounded wait and cleanup on failure.
 * Replace the X11 desktop window type with a lowered dock: above wallpaper, below
   ordinary applications, immune to Show Desktop, without reserving screen space.
 * Retain direct dragging and click-through locking for background placement.

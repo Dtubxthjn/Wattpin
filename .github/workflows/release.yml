@@ -56,11 +56,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - run: choco install nsis --yes --no-progress
-      - run: ./packaging/windows/build.ps1
-        shell: pwsh
+      - run: python -m pip install '.[dev]' 'PySide6-Essentials==6.8.3'
       - run: python -m pytest -q
         env:
           QT_QPA_PLATFORM: offscreen
+      - run: ./packaging/windows/build.ps1
+        shell: pwsh
       - name: Install, self-test, and uninstall
         shell: pwsh
         run: |
